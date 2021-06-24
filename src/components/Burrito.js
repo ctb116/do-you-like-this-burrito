@@ -1,19 +1,46 @@
+import React from "react";
 import { useFirestore, useFirestoreDocData } from 'reactfire';
 import LikeButton from './LikeButton';
 
 
-const Burrito = () => {
+const Burrito = ({ handleChange, isChecked }) => {
   const burritoRef = useFirestore()
   .collection('foodTruck')
   .doc('burrito');
   
   const { status, data } = useFirestoreDocData(burritoRef);
 
-  function handleClick() {
-    let upvote = {
-      liked: data.liked + 1
+  handleChange = () => {
+
+    if(sessionStorage.getItem('liked') === null) {
+      sessionStorage.setItem('liked', 'false');
     }
-    burritoRef.set(upvote)
+
+    const likedState = sessionStorage.getItem('liked');
+
+    if(likedState === 'false') {
+      sessionStorage.setItem('liked', 'true');
+      let vote = {
+        liked: data.liked + 1
+      }
+      burritoRef.set(vote)
+    } else {
+      sessionStorage.setItem('liked', 'false');
+      let vote = {
+        liked: data.liked - 1
+      }
+      burritoRef.set(vote)
+    }
+
+  };
+
+  isChecked = () => {
+    const likedState = sessionStorage.getItem('liked')
+    if(likedState === 'false') {
+      return false
+    } else {
+      return true
+    }
   }
 
   if (status === "loading") {
@@ -22,7 +49,10 @@ const Burrito = () => {
     return (
       <div>
         <p>The burrito is liked: {data.liked}!</p>
-        <LikeButton handleClick={handleClick}/>
+        <LikeButton 
+          handleChange={handleChange}
+          isChecked={isChecked}
+        />
       </div>
     )
   }
