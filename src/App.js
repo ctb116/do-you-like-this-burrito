@@ -1,20 +1,4 @@
-import { useFirestore, useFirestoreDocData } from 'reactfire';
-
-function Burrito() {
-  const burritoRef = useFirestore()
-  .collection('foodTruck')
-  .doc('burrito');
-
-  const { status, data } = useFirestoreDocData(burritoRef);
-
-  if (status === "loading") {
-    return <p>Fetching burrito flavor...</p>;
-  }
-
-  return <p>The burrito is liked: {data.liked}!</p>;
-
-}
-
+import Burrito from './components/Burrito';
 
 function App() {
 
