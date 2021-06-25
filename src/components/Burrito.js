@@ -10,12 +10,12 @@ const Burrito = ({ handleChange, isChecked }) => {
   
   const { status, data } = useFirestoreDocData(burritoRef);
 
+  if(sessionStorage.getItem('liked') === null) {
+    sessionStorage.setItem('liked', 'false');
+  }
+
   handleChange = () => {
-
-    if(sessionStorage.getItem('liked') === null) {
-      sessionStorage.setItem('liked', 'false');
-    }
-
+    
     const likedState = sessionStorage.getItem('liked');
 
     if(likedState === 'false') {
@@ -48,11 +48,11 @@ const Burrito = ({ handleChange, isChecked }) => {
   } else {
     return (
       <div>
-        <p>The burrito is liked: {data.liked}!</p>
         <LikeButton 
           handleChange={handleChange}
           isChecked={isChecked}
         />
+        <p>The burrito is liked: {data.liked}!</p>
       </div>
     )
   }
