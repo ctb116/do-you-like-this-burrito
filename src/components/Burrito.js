@@ -15,7 +15,7 @@ const Burrito = ({ handleChange, isChecked }) => {
   }
 
   handleChange = () => {
-    
+
     const likedState = sessionStorage.getItem('liked');
 
     if(likedState === 'false') {
@@ -52,7 +52,10 @@ const Burrito = ({ handleChange, isChecked }) => {
           handleChange={handleChange}
           isChecked={isChecked}
         />
-        <p>The burrito is liked: {data.liked}!</p>
+        <div className='footer'>
+          <h2>This burrito has gotten...</h2>
+          <p><span>{data.liked}</span> likes!</p>
+        </div>
       </div>
     )
   }
