@@ -36,7 +36,7 @@ This application isn't extensive but instead of trying to manage redux state, I 
 <br>
 I used this project to also experiment with an idea to add a casual like button to an image. A user could casually like an image without needing to create an account. A tally of likes is stored in Firestore but the like button checked attribute true/false value is stored in Window.sessionStorage. Meaning a user can like an image, increase the like tally, start a new session, like the image and increase the tally again.
 
-Users (friends and family) didn't like that. They also really didn't like the picture of the burrito I chose. More in user feedback.
+Users (friends and family) didn't like that. They also really didn't like the picture of the burrito I chose. More in [user feedback](https://github.com/ctb116/do-you-like-this-burrito/wiki/user-feedback).
 
 ***
 
