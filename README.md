@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Do you like this Burrito?
+By _**Cathy T Bradley**_
+<br>
+*updated: 6/26/21*
+***
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+A simple question: do you like this burrito? If so, click the heart-shaped like button. Your response will be noted.
 
-## Available Scripts
+Go to [do-you-like-this-burrito.web.app](https://do-you-like-this-burrito.web.app/) to see the burrito.
 
-In the project directory, you can run:
+## Purpose
+To try out [ReactFire](https://github.com/FirebaseExtended/reactfire) to interact with Firebase in a ReactJS application. Why? Originally I used [react-redux-firebase](https://github.com/prescottprue/react-redux-firebase), but never actually used redux to manage Firebase data. This article, [React and Firebase without Redux](https://prescottprue.medium.com/react-and-firebase-without-redux-5c1b2b6a6ba1) by Scott Prue, the creator of react-redux-firebase, convinced me to try out ReactFire.
 
-### `npm start`
+### Goals
+1. Try out ReactFire. Is it easier to use for the applications I want to make?
+2. Set up a Firestore Database will real time updates in the application using ReactFire.
+3. Deploy application using Firebase Hosting
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Results
+**Success!**
+<br> 
+This application isn't extensive but instead of trying to manage redux state, I can get data from firestore to the component I need as simple as:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+  const burritoRef = useFirestore()
+  .collection('foodTruck')
+  .doc('burrito');
+  
+  const { status, data } = useFirestoreDocData(burritoRef);
+```
 
-### `npm test`
+`useFirestore` gets my firebase app from Context from anywhere in my application. Hooks like `useFirestoreDocData` let me subscribe to that data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Not so Success!**
+<br>
+I used this project to also experiment with an idea to add a casual like button to an image. A user could casually like an image without needing to create an account. A tally of likes is stored in Firestore but the like button checked attribute true/false value is stored in Window.sessionStorage. Meaning a user can like an image, increase the like tally, start a new session, like the image and increase the tally again.
 
-### `npm run build`
+Users (friends and family) didn't like that. They also really didn't like the picture of the burrito I chose. More in user feedback.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+***
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies
+- ReactJS (create-react-apt)
+- JavaScript
+- ReactFire ([quickstart guide](https://github.com/FirebaseExtended/reactfire/blob/main/docs/quickstart.md))
+- Firebase
+- CSS ([Material-UI](https://material-ui.com/))
+- HTML
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Known Bugs/Issues:
+- Not mobile friendly. No media query.
+- See **Not so Success!** above.
